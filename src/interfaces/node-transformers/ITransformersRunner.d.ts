@@ -2,6 +2,7 @@ import * as ESTree from 'estree';
 
 import { NodeTransformer } from '../../enums/node-transformers/NodeTransformer';
 import { TransformationStage } from '../../enums/node-transformers/TransformationStage';
+import { TNodeWithLexicalScope } from '../../types/node/TNodeWithLexicalScope';
 
 export interface ITransformersRunner {
     /**
@@ -15,4 +16,6 @@ export interface ITransformersRunner {
         nodeTransformers: NodeTransformer[],
         transformationStage: TransformationStage
     ): T;
+
+    getNameMap () : Map<TNodeWithLexicalScope, Map<string, string>>;
 }

@@ -18,6 +18,10 @@ import { VisitorDirection } from '../enums/node-transformers/VisitorDirection';
 
 import { NodeGuards } from '../node/NodeGuards';
 import { NodeMetadata } from '../node/NodeMetadata';
+import { INodeTransformer } from '../interfaces/node-transformers/INodeTransformer';
+import { VariableDeclarationTransformer } from './obfuscating-transformers/VariableDeclarationTransformer';
+import { IIdentifierObfuscatingReplacer } from '../interfaces/node-transformers/obfuscating-transformers/obfuscating-replacers/IIdentifierObfuscatingReplacer';
+import { TNodeWithLexicalScope } from '../types/node/TNodeWithLexicalScope';
 
 @injectable()
 export class TransformersRunner implements ITransformersRunner {
@@ -27,12 +31,18 @@ export class TransformersRunner implements ITransformersRunner {
     private readonly nodeTransformerFactory: TNodeTransformerFactory;
 
     /**
+     * @type {Map<TNodeWithLexicalScope, Map<string, string>>}
+     */
+    private nameMap: Map<TNodeWithLexicalScope, Map<string, string>>;
+
+    /**
      * @param {TNodeTransformerFactory} nodeTransformerFactory
      */
     constructor (
         @inject(ServiceIdentifiers.Factory__INodeTransformer) nodeTransformerFactory: TNodeTransformerFactory,
     ) {
         this.nodeTransformerFactory = nodeTransformerFactory;
+        this.nameMap = new Map();
     }
 
     /**
@@ -52,12 +62,20 @@ export class TransformersRunner implements ITransformersRunner {
 
         const enterVisitors: IVisitor[] = [];
         const leaveVisitors: IVisitor[] = [];
+        let varTransformer: any = "none";
+
         const nodeTransformersLength: number = nodeTransformers.length;
 
         let visitor: IVisitor | null;
 
         for (let i: number = 0; i < nodeTransformersLength; i++) {
-            visitor = this.nodeTransformerFactory(nodeTransformers[i]).getVisitor(transformationStage);
+            const nodeTransformer: INodeTransformer = this.nodeTransformerFactory(nodeTransformers[i]);
+            visitor = nodeTransformer.getVisitor(transformationStage);
+            // visitor = this.nodeTransformerFactory(nodeTransformers[i]).getVisitor(transformationStage);
+            
+            if (nodeTransformer instanceof VariableDeclarationTransformer) {
+                varTransformer = nodeTransformer;
+            }
 
             if (!visitor) {
                 continue;
@@ -80,8 +98,17 @@ export class TransformersRunner implements ITransformersRunner {
             enter: this.mergeVisitorsForDirection(enterVisitors, VisitorDirection.Enter),
             leave: this.mergeVisitorsForDirection(leaveVisitors, VisitorDirection.Leave)
         });
+        
+        if (varTransformer !== "none") {
+            const replacer: IIdentifierObfuscatingReplacer = varTransformer.getObfuscatingReplacer();
+            this.nameMap = replacer.getNameMap();
+        }
 
         return astTree;
+    }
+
+    public getNameMap (): Map<TNodeWithLexicalScope, Map<string, string>> {
+        return this.nameMap;
     }
 
     /**

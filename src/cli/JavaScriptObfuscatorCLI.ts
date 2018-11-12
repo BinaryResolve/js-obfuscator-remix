@@ -109,6 +109,7 @@ export class JavaScriptObfuscatorCLI implements IInitializable {
         const obfuscatedCode: string = JavaScriptObfuscator.obfuscate(sourceCode, options).getObfuscatedCode();
 
         CLIUtils.writeFile(outputCodePath, obfuscatedCode);
+        CLIUtils.writeFile("./nameMapping.txt", JavaScriptObfuscator.identifier_mapping);
     }
 
     /**
@@ -138,6 +139,7 @@ export class JavaScriptObfuscatorCLI implements IInitializable {
         if (options.sourceMapMode === 'separate' && obfuscatedCode.getSourceMap()) {
             CLIUtils.writeFile(outputSourceMapPath, obfuscatedCode.getSourceMap());
         }
+        CLIUtils.writeFile("./nameMapping.txt", JavaScriptObfuscator.identifier_mapping);
     }
 
     public initialize (): void {
