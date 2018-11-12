@@ -39,10 +39,6 @@ export class BaseIdentifierObfuscatingReplacer extends AbstractObfuscatingReplac
         this.identifierNamesGenerator = identifierNamesGeneratorFactory(options);
     }
 
-    getNameMap (): Map<TNodeWithLexicalScope, Map<string, string>>{
-        return this.blockScopesMap
-    }
-
     /**
      * @param {string} nodeValue
      * @param {TNodeWithLexicalScope} lexicalScopeNode

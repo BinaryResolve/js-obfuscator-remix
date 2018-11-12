@@ -64,18 +64,6 @@ export class VariableDeclarationTransformer extends AbstractNodeTransformer {
     }
 
     /**
-     * return identifier name map
-     */
-    // public getNameMap (): string | null {
-    //     let nameMap = this.identifierObfuscatingReplacer.getNameMap;
-    //     return "idk yet";
-    // }
-
-    public getObfuscatingReplacer(): IIdentifierObfuscatingReplacer{
-        return this.identifierObfuscatingReplacer;
-    }
-
-    /**
      * @param {TransformationStage} transformationStage
      * @returns {IVisitor | null}
      */
