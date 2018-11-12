@@ -17,5 +17,5 @@ export interface ITransformersRunner {
         transformationStage: TransformationStage
     ): T;
 
-    getNameMap () : Map<TNodeWithLexicalScope, Map<string, string>>;
+    getNameMap (): Map<TNodeWithLexicalScope, Map<string, string>>;
 }
