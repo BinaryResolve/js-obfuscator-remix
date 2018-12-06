@@ -12,7 +12,7 @@ JavaScript obfuscator is a powerful free obfuscator for JavaScript with a wide n
 
 Example of obfuscated code: [gist.github.com](https://gist.github.com/sanex3339/ffc2876123b52e6d11ce45369fd53acf)
 
-#### CMU Modification notes
+#### CMU modification notes
 This repo contains two branches. The 'original' branch contains the fork of javascript-obfuscator. The 'master' branch contains the modified version. The 'original' branch exists only for the purpose of identifying the changes made from the original in 'master'. The only difference between the original is that this version outputs a mapping between original and obfuscated identifier names. This functionality exists only in the CLI. To quickly install the javascript-obfuscator CLI execute:
 ```bash
 npm link javascript-obfuscator
