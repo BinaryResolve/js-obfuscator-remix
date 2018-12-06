@@ -9,7 +9,10 @@
 ![logo](https://raw.githubusercontent.com/javascript-obfuscator/javascript-obfuscator/master/images/logo.png)
 
 # CMU Modification notes
-This repo contains two branches. The 'original' branch contains the fork of javascript-obfuscator. The 'master' branch contains the modified version. The 'original' branch exists only for the purpose of identifying the changes made from the original in 'master'.
+This repo contains two branches. The 'original' branch contains the fork of javascript-obfuscator. The 'master' branch contains the modified version. The 'original' branch exists only for the purpose of identifying the changes made from the original in 'master'. The only difference between the original is that this version outputs a mapping between original and obfuscated identifier names. This functionality exists only in the CLI. To quickly install the javascript-obfuscator CLI execute:
+```bash
+npm link javascript-obfuscator
+```
 
 JavaScript obfuscator is a powerful free obfuscator for JavaScript with a wide number of features which provides protection for your source code.
 
