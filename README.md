@@ -8,6 +8,9 @@
 
 ![logo](https://raw.githubusercontent.com/javascript-obfuscator/javascript-obfuscator/master/images/logo.png)
 
+# CMU Modification notes
+This repo contains two branches. The 'original' branch contains the fork of javascript-obfuscator. The 'master' branch contains the modified version. The 'original' branch exists only for the purpose of identifying the changes made from the original in 'master'.
+
 JavaScript obfuscator is a powerful free obfuscator for JavaScript with a wide number of features which provides protection for your source code.
 
 Example of obfuscated code: [gist.github.com](https://gist.github.com/sanex3339/ffc2876123b52e6d11ce45369fd53acf)
